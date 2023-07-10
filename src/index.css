@@ -54,6 +54,18 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+ul{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+li{
+  list-style-type: none;
+}
+.listBox{
+  
+}
 
 @media (prefers-color-scheme: light) {
   :root {

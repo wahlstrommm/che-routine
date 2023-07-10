@@ -1,14 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { Link } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
       <div>
+        <div className="listBox">
+          <p>test</p>
+          <ul>
+            <li>Hem</li>
+            <li>
+              <Link to={"Pages/Opening.tsx"}>Öppningsrutin</Link>
+            </li>
+            <li>Stängningsrutin</li>
+            <li>Veckorutin</li>
+            <li>Månadsrutin</li>
+            <li>Sällanrutin</li>
+            <li>Specialrutin</li>
+          </ul>
+        </div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -29,7 +44,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
