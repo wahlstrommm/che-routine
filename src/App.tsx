@@ -15,7 +15,7 @@ function App() {
           <ul>
             <li>Hem</li>
             <li>
-              <Link to={"Pages/Opening.tsx"}>Öppningsrutin</Link>
+              <Link to={"/Opening"}>Öppningsrutin</Link>
             </li>
             <li>Stängningsrutin</li>
             <li>Veckorutin</li>

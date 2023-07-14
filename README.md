@@ -2,8 +2,15 @@
 
 # Giftary
 
-My project is a gift generator that's going to eliminate that last minute shopping for people and help them to give a more meaningful and thoughtful gift. And also give insight with a list of what's popular . And let them save products in the list for future buys. Also for companies to display their product and give the public a better view on Amazon and their product (referring to their launch in Sweden).
+The company has entrusted me with the responsibility of designing and developing their routine page. This comprehensive platform is designed to cater specifically to the needs of new employees, offering them valuable assistance in effectively managing their tasks and responsibilities. By utilizing this user-friendly system, new hires can streamline their workflows, allowing them to allocate their time more efficiently and stay on top of their work commitments.
 
+The routine page serves as a centralized hub, providing a range of helpful features and resources. It offers easy access to essential tools, guidelines, and information necessary for completing tasks effectively. Additionally, it enables employees to prioritize and organize their work in a structured manner, ensuring that nothing falls through the cracks.
+
+One of the primary objectives of this initiative is to enhance productivity by eliminating unnecessary administrative burdens. By automating certain processes and simplifying routine tasks, the platform empowers employees to focus on high-value work and strategic initiatives. Furthermore, the system provides real-time updates and notifications, keeping employees informed about important deadlines, meetings, and project milestones.
+
+With this innovative routine page in place, the company aims to foster a culture of efficiency and collaboration. It not only assists new employees in quickly adapting to their roles but also promotes a sense of accountability and transparency across the organization. By leveraging this tool, employees can easily track their progress, share updates with their team members, and seek assistance whenever needed.
+
+In summary, the implementation of this dedicated routine page will significantly contribute to the company's overall operational effectiveness. It will empower new employees to navigate their responsibilities with ease, optimize their time management, and ensure a smoother workflow within the organization.
 
 ## References
 
