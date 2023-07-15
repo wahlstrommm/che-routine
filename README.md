@@ -1,6 +1,5 @@
 
-
-# Giftary
+# Che routine site
 
 The company has entrusted me with the responsibility of designing and developing their routine page. This comprehensive platform is designed to cater specifically to the needs of new employees, offering them valuable assistance in effectively managing their tasks and responsibilities. By utilizing this user-friendly system, new hires can streamline their workflows, allowing them to allocate their time more efficiently and stay on top of their work commitments.
 
@@ -12,19 +11,13 @@ With this innovative routine page in place, the company aims to foster a culture
 
 In summary, the implementation of this dedicated routine page will significantly contribute to the company's overall operational effectiveness. It will empower new employees to navigate their responsibilities with ease, optimize their time management, and ensure a smoother workflow within the organization.
 
-## References
-
- - [Amazon får nobben av svenskarna – ”har inte lyckats i Sverige”.](https://www.ehandel.se/amazon-far-nobben-av-svenskarna-har-inte-lyckats-i-sverige)
-
-- [Figma overview](https://www.figma.com/file/gNN8MjeTvOYKfU4KayNxMg/exjobb-flow?node-id=0%3A1&t=mUEXCnpAh8fUbmNi-1) 
 ## 🛠 What i used
 
 
-![](https://skillicons.dev/icons?i=figma,git,github,react,ts,html,tailwind,mongodb,nodejs,express,vscode,postman,powershell,ps&perline=3)
+![](https://skillicons.dev/icons?i=figma,git,github,react,ts,html,vscode,postman&perline=3)
 
 ![Framer](https://img.shields.io/badge/Framer-black?style=for-the-badge&logo=framer&logoColor=blue) 
 
-![Trello](https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white)
 
 ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
 
@@ -320,27 +313,6 @@ Christmas: String
 I choose strings just because I will be working with alot of input fields but I will set the type of input as a number on a few but it will return as a string that I will use in my database. 
 
 Check the [Figma](https://www.figma.com/file/gNN8MjeTvOYKfU4KayNxMg/exjobb-flow?node-id=0%3A1&t=mUEXCnpAh8fUbmNi-1) file more details.
-## Purpose
-
-
-
-The purpose of this product is the result of different realizations both from what I have experienced in my personal life but also from my time as an intern at Ampilio. And how society has changed after the pandemic.
-
-Usually when I buy something either for myself or for people as a birthday present I find it extremely boring and time consuming to browse and not really know what to buy. 
-
-One might say that “just order something online” but then the problem will remain the same. 
-“Why not just use Amazon then? ”That's an option but I still find it hard. And I'm not alone according to a survey done by Qvik in an article where they ask about people's views on Amazon in Sweden. It was confirmed that 21.3 % of people who were asked about Amazon Sweden completely disagreed with Amazon and went for the familiar site or the local alternative. 
-
-*Totalt ska mer än en femtedel, 21,3 procent för att vara exakt, helt valt bort Amazon och istället varit den bekanta webbutiken och lokala alternativ trogen.* 
- 
-During this Black week when I was trying out some clothes, I happened to overhear people asking the salesperson of the store for help to find a good gift for their loved ones and also asking for recommendations on what's popular etc.
-
-And that got me thinking both from a customer perspective but also from the company. Customers go into the store they are only limited to just that store and that store alone. The customer can probably order something from a different store if the current one happens to be out but that's it. That just assumes that the different items are good & popular but what's confirming it? The person working there? They will probably try to sell you something and say what you want to hear. 
-
-So I wanted to give the people a product that takes the power from the company and gives it to the consumer, the ones that actually matter. Where people can see the product for what it really is.  
-
-And this product will be available to everyone despite their socioeconomic status and background and that hopefully will decrease the bridge between people when people often associate by appearance. And also help with the increasing problem that younger people are taking text-loan to support their lavish lifestyle according to Kronofogden which usually includes fancier clothes. By showing it on my product and how many people are actually buying that product hopefully that will show the people to buy cheaper and better alternatives. And also help stores to reach a bigger customer group that maybe are now limited to their local area.
-
 ## Target audience
 
 The target audience for this product will both be the private person but also as a company. 
@@ -567,9 +539,3 @@ And hopefully I have time to do one final test with a fully working prototype.
 [![Github](https://skillicons.dev/icons?i=github)](https://github.com/wahlstrommm) 
 
 [![linkedin](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/magnus-vahlstrom/)
-
-[Repo](https://github.com/wahlstrommm/Giftary)
-
-[Front repo](https://github.com/wahlstrommm/Giftary/tree/main/front)
-
-[Back repo](https://github.com/wahlstrommm/Giftary/tree/main/backend)
