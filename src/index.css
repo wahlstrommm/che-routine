@@ -66,7 +66,19 @@ li{
 .listBox{
   
 }
-
+.label-container{
+  display: flex;
+  justify-content:space-evenly;
+  text-align: center;
+  
+}
+label{
+  margin: 10px;
+}
+textarea{
+  margin: 1px;
+  justify-self: center;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
