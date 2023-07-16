@@ -1,3 +1,5 @@
-{
-    "routines": ["Öpning1","Öpning12"]
-}
+    {
+        "Klockan" : "14:00",
+        "Viktigt" : "Ja jätte",
+        "Done" : true
+    }
