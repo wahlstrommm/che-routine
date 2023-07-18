@@ -63,21 +63,18 @@ ul{
 li{
   list-style-type: none;
 }
-.listBox{
-  
-}
-.label-container{
-  display: flex;
-  justify-content:space-evenly;
-  text-align: center;
-  
-}
-label{
-  margin: 10px;
-}
+
 textarea{
-  margin: 1px;
-  justify-self: center;
+  min-height: 20px;
+}
+
+
+.labelAndBtnContainer{
+  display: flex;
+  flex-direction: column;
+}
+.labelAndBtnContainer>label,input{
+  margin: 10px;
 }
 @media (prefers-color-scheme: light) {
   :root {
