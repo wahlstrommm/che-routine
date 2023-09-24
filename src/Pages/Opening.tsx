@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Routine } from "./types";
 import openingRoutine from "../assets/openingRoutine.json";
+import axios from "axios";
 
 const Opening = () => {
   const [name, setName] = useState("");
@@ -32,7 +33,6 @@ const Opening = () => {
       return;
     }
 
-    // Skapa ett nytt objekt med användarens namn, datum och rutiner
     const newData = {
       Namn: name,
       Datum: new Date().toISOString().split("T")[0],
@@ -57,9 +57,20 @@ const Opening = () => {
 
     // Rensa URL-objektet efter nedladdningen
     URL.revokeObjectURL(url);
-
-    // Rensa anledningsfältet
     setReason("");
+
+    // Skicka data till servern med Axios
+    try {
+      axios.post("http://localhost:3000/opening", newData)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -83,7 +94,7 @@ const Opening = () => {
                   }}
                   onClick={() => handleItemClick(index)}
                 >
-                  Klockan : {item.Klockan}, Viktig : {item.Viktigt}, Klar:{" "}
+                  Klockan: {item.Klockan}, Viktig: {item.Viktigt}, Klar:{" "}
                   {item.Done ? "Ja" : "Nej"}
                 </span>
               </label>
@@ -95,7 +106,7 @@ const Opening = () => {
           <div></div>
           {!routines.every((item) => item.Done) && (
             <label>
-              Notis :
+              Notis:
               <textarea
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
