@@ -6,7 +6,7 @@ import axios from "axios";
 const Opening = () => {
   const [name, setName] = useState("");
   const [reason, setReason] = useState("");
-  const [routines, setRoutines] = useState<Routine[]>([openingRoutine]);
+  const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
 
   const handleItemClick = (index: number) => {
     const updatedRoutines = [...routines];
@@ -61,7 +61,8 @@ const Opening = () => {
 
     // Skicka data till servern med Axios
     try {
-      axios.post("http://localhost:3000/opening", newData)
+      axios
+        .post("http://localhost:3000/opening", newData)
         .then((response) => {
           console.log(response.data);
         })
