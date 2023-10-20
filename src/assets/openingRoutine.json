@@ -1,5 +1,12 @@
-    {
-        "Klockan" : "14:00",
+    [
+
+        {
+            "Klockan" : "14:00",
         "Viktigt" : "Ja jätte",
         "Done" : true
+    },    {
+        "Klockan" : "6:00",
+        "Viktigt" : "Ja jätte",
+        "Done" : false
     }
+        ]
