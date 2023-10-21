@@ -16,6 +16,16 @@ const Opening = () => {
     };
     updatedRoutines[index] = updatedItem;
     setRoutines(updatedRoutines);
+
+    // Skicka den uppdaterade rutinen till servern
+    axios
+      .post("http://localhost:3000/opening/update", { index, updatedItem })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("Fel vid uppdatering av rutinen:", error);
+      });
   };
 
   const handleCheckboxChange = (index: number, checked: boolean) => {
