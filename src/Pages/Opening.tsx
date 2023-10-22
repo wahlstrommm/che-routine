@@ -8,6 +8,38 @@ const Opening = () => {
   const [reason, setReason] = useState("");
   const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: routines } = await axios.get("/stuff/to/fetch");
+        setRoutines([routines]);
+      } catch (error) {
+        console.error(error.message);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getData = () => {
+    axios({
+      method: "get",
+      url: "http://localhost:3000/opening",
+    })
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (Error) {
+        console.log(Error);
+      });
+  };
+
   const handleItemClick = (index: number) => {
     const updatedRoutines = [...routines];
     const updatedItem: Routine = {
@@ -27,19 +59,6 @@ const Opening = () => {
         console.log("Fel vid uppdatering av rutinen:", error);
       });
   };
-
-  useEffect(() => {
-    async function getData() {
-      axios.get("http://localhost:3000/opening");
-      await fetch(API)
-        .then((res) => res.json())
-        .then((data) => setData(data));
-    }
-    getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const getData = () => {};
 
   const handleCheckboxChange = (index: number, checked: boolean) => {
     const updatedRoutines = [...routines];
