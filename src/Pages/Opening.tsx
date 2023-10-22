@@ -8,19 +8,19 @@ const Opening = () => {
   const [reason, setReason] = useState("");
   const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data: routines } = await axios.get("/stuff/to/fetch");
-        setRoutines([routines]);
-      } catch (error) {
-        console.error(error.message);
-      }
-      setLoading(false);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const { data: SetRoutines } = await axios.get("/stuff/to/fetch");
+  //       setRoutines([routines]);
+  //     } catch (error) {
+  //       console.error(error.message);
+  //     }
+  //     setLoading(false);
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     getData();
