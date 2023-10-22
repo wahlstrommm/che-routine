@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Routine } from "./types";
-import openingRoutine from "../assets/openingRoutine.json";
+//import openingRoutine from "../assets/openingRoutine.json";
 import axios from "axios";
 
 const Opening = () => {
   const [name, setName] = useState("");
   const [reason, setReason] = useState("");
-  const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
+  // const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
 
+  const [routines, setRoutines] = useState<Routine[]>();
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -34,6 +35,7 @@ const Opening = () => {
     })
       .then(function (response) {
         console.log(response.data);
+        console.warn(response.data);
       })
       .catch(function (Error) {
         console.log(Error);
