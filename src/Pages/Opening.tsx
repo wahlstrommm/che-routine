@@ -24,49 +24,60 @@ const Opening = () => {
   // }, []);
 
   useEffect(() => {
-    getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    void getData();
   }, []);
 
-  const getData = () => {
-    axios({
-      method: "get",
-      url: "http://localhost:3000/opening",
-    })
-      .then(function (response) {
-        console.log(response.data);
-        console.warn(response.data);
-      })
-      .catch(function (Error) {
-        console.log(Error);
-      });
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/opening-routines"
+      );
+      // Kontrollera om response.data är en array innan du använder den
+      if (Array.isArray(response.data)) {
+        setRoutines(response.data);
+      } else {
+        console.error("Data is not an array:", response.data);
+        // Om det inte är en array, sätt routines till en tom array
+        setRoutines([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleItemClick = (index: number) => {
-    const updatedRoutines = [...routines];
-    const updatedItem: Routine = {
-      ...updatedRoutines[index],
-      Done: !updatedRoutines[index].Done,
-    };
-    updatedRoutines[index] = updatedItem;
-    setRoutines(updatedRoutines);
+    // Kontrollera om routines är definierad innan du fortsätter
+    if (routines) {
+      const updatedRoutines = [...routines];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const updatedItem: Routine = {
+        ...updatedRoutines[index],
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        Done: !updatedRoutines[index].Done,
+      };
+      updatedRoutines[index] = updatedItem;
+      setRoutines(updatedRoutines);
 
-    // Skicka den uppdaterade rutinen till servern
-    axios
-      .post("http://localhost:3000/opening/update", { index, updatedItem })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log("Fel vid uppdatering av rutinen:", error);
-      });
+      // Skicka den uppdaterade rutinen till servern
+      axios
+        .post("http://localhost:3000/opening/update", { index, updatedItem })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log("Fel vid uppdatering av rutinen:", error);
+        });
+    }
   };
 
   const handleCheckboxChange = (index: number, checked: boolean) => {
-    const updatedRoutines = [...routines];
-    const updatedItem: Routine = { ...updatedRoutines[index], Done: checked };
-    updatedRoutines[index] = updatedItem;
-    setRoutines(updatedRoutines);
+    if (routines) {
+      const updatedRoutines = [...routines];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const updatedItem: Routine = { ...updatedRoutines[index], Done: checked };
+      updatedRoutines[index] = updatedItem;
+      setRoutines(updatedRoutines);
+    }
   };
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -80,7 +91,7 @@ const Opening = () => {
     const newData = {
       Namn: name,
       Datum: new Date().toISOString().split("T")[0],
-      Rutiner: routines,
+      Rutiner: routines || [], // Tillhandahåll en tom array som standard om routines är undefined
       Anledning: reason,
     };
 
@@ -106,7 +117,7 @@ const Opening = () => {
     // Skicka data till servern med Axios
     try {
       axios
-        .post("http://localhost:3000/opening", newData)
+        .post("http://localhost:3000/opening-routines", newData)
         .then((response) => {
           console.log(response.data);
         })
@@ -122,8 +133,8 @@ const Opening = () => {
     <div>
       <h2>Öppningsrutin</h2>
       <form onSubmit={handleFormSubmit}>
-        <ul>
-          {routines.map((item: Routine, index: number) => (
+        <ul className="listTodo">
+          {routines?.map((item: Routine, index: number) => (
             <li key={index}>
               <label>
                 <input
@@ -149,7 +160,7 @@ const Opening = () => {
 
         <div className="labelAndBtnContainer">
           <div></div>
-          {!routines.every((item) => item.Done) && (
+          {!routines?.every((item) => item.Done) && (
             <label>
               Notis:
               <textarea
