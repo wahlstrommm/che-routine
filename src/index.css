@@ -88,3 +88,8 @@ textarea{
     background-color: #f9f9f9;
   }
 }
+.listTodo{
+  display: flex;
+  flex-direction: column;
+}
+
