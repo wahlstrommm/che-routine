@@ -32,9 +32,12 @@ const Opening = () => {
       const response = await axios.get(
         "http://localhost:3000/opening-routines"
       );
+      console.error(response.data);
       // Kontrollera om response.data är en array innan du använder den
-      if (Array.isArray(response.data)) {
-        setRoutines(response.data);
+      const responseData = response.data as { Rutiner?: any[] };
+      if (response.data && Array.isArray(responseData.Rutiner)) {
+        setRoutines(responseData.Rutiner);
+        // console.warn(response.data);
       } else {
         console.error("Data is not an array:", response.data);
         // Om det inte är en array, sätt routines till en tom array
@@ -95,24 +98,24 @@ const Opening = () => {
       Anledning: reason,
     };
 
-    // Skapa en JSON-sträng från datan
-    const jsonData = JSON.stringify(newData, null, 2);
+    // // Skapa en JSON-sträng från datan
+    // const jsonData = JSON.stringify(newData, null, 2);
 
-    // Skapa ett Blob-objekt med JSON-strängen
-    const blob = new Blob([jsonData], { type: "application/json" });
+    // // Skapa ett Blob-objekt med JSON-strängen
+    // const blob = new Blob([jsonData], { type: "application/json" });
 
-    // Skapa en URL för Blob-objektet
-    const url = URL.createObjectURL(blob);
+    // // Skapa en URL för Blob-objektet
+    // const url = URL.createObjectURL(blob);
 
-    // Skapa en länk för att ladda ner filen
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `data_${newData.Datum}_oppning.json`;
-    link.click();
+    // // Skapa en länk för att ladda ner filen
+    // const link = document.createElement("a");
+    // link.href = url;
+    // link.download = `data_${newData.Datum}_oppning.json`;
+    // link.click();
 
-    // Rensa URL-objektet efter nedladdningen
-    URL.revokeObjectURL(url);
-    setReason("");
+    // // Rensa URL-objektet efter nedladdningen
+    // URL.revokeObjectURL(url);
+    // setReason("");
 
     // Skicka data till servern med Axios
     try {
