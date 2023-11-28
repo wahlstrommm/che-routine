@@ -9,19 +9,6 @@ const Opening = () => {
   // const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
 
   const [routines, setRoutines] = useState<Routine[]>();
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const { data: SetRoutines } = await axios.get("/stuff/to/fetch");
-  //       setRoutines([routines]);
-  //     } catch (error) {
-  //       console.error(error.message);
-  //     }
-  //     setLoading(false);
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   useEffect(() => {
     void getData();
@@ -32,7 +19,7 @@ const Opening = () => {
       const response = await axios.get(
         "http://localhost:3000/opening-routines"
       );
-      console.error(response.data);
+      //console.error(response.data);
       // Kontrollera om response.data är en array innan du använder den
       const responseData = response.data as { Rutiner?: any[] };
       if (response.data && Array.isArray(responseData.Rutiner)) {
@@ -63,7 +50,7 @@ const Opening = () => {
 
       // Skicka den uppdaterade rutinen till servern
       axios
-        .post("http://localhost:3000/opening/update", { index, updatedItem })
+        .post("http://localhost:3000/opening-routines", { index, updatedItem })
         .then((response) => {
           console.log(response.data);
         })
