@@ -10,7 +10,8 @@ const Opening = () => {
   const [showModal, setShowModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [routines, setRoutines] = useState<Routine[]>();
-
+  const [completedTodos, setCompletedTodos] = useState<string[]>([]);
+  const [hasChanges, setHasChanges] = useState(false);
   useEffect(() => {
     void getData();
   }, []);
@@ -72,13 +73,23 @@ const Opening = () => {
     }
   };
 
-  const handleCheckboxChange = (index: number, checked: boolean) => {
+  const handleCheckboxChange = (index: number, checked: boolean): void => {
     if (routines) {
-      const updatedRoutines = [...routines];
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const updatedRoutines: Routine[] = [...routines];
       const updatedItem: Routine = { ...updatedRoutines[index], Done: checked };
       updatedRoutines[index] = updatedItem;
       setRoutines(updatedRoutines);
+
+      setCompletedTodos((prevCompleted: string[]): string[] =>
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        checked
+          ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+            [...prevCompleted, updatedItem.Id.toString()]
+          : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+            prevCompleted.filter((id) => id !== updatedItem.Id.toString())
+      );
+
+      setHasChanges(true);
     }
   };
 
