@@ -10,12 +10,17 @@ const Opening = () => {
   const [showModal, setShowModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   // const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
-
   const [routines, setRoutines] = useState<Routine[]>();
 
   useEffect(() => {
     void getData();
   }, []);
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    // Rensa successmeddelandet när modalen stängs
+    setSuccessMessage("");
+  };
 
   const getData = async () => {
     try {
