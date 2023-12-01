@@ -19,7 +19,6 @@ const Opening = () => {
       const response = await axios.get(
         "http://localhost:3000/opening-routines"
       );
-      console.error("Detta", response.data);
       // Kontrollera om response.data är en array innan du använder den
       const responseData = response.data as { Rutiner?: any[] };
       if (response.data && Array.isArray(responseData.Rutiner)) {
