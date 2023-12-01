@@ -118,6 +118,14 @@ const Opening = () => {
     }
   };
 
+  const isSaveButtonDisabled = () => {
+    //disable the button is send is sucess or no new todo is checked
+    return (
+      successMessage !== "" ||
+      (routines && routines.every((item) => !item.Done))
+    );
+  };
+
   return (
     <div>
       <h2>Öppningsrutin</h2>
