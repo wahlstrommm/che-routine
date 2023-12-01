@@ -19,12 +19,15 @@ const Opening = () => {
       const response = await axios.get(
         "http://localhost:3000/opening-routines"
       );
-      //console.error(response.data);
+      console.error("Detta", response.data);
       // Kontrollera om response.data är en array innan du använder den
       const responseData = response.data as { Rutiner?: any[] };
       if (response.data && Array.isArray(responseData.Rutiner)) {
         setRoutines(responseData.Rutiner);
-        // console.warn(response.data);
+        console.warn(response.data);
+      } else if (response.data && Array.isArray(responseData)) {
+        setRoutines(responseData);
+        console.warn(response.data);
       } else {
         console.error("Data is not an array:", response.data);
         // Om det inte är en array, sätt routines till en tom array
