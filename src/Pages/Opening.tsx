@@ -7,6 +7,8 @@ import axios from "axios";
 const Opening = () => {
   const [name, setName] = useState("");
   const [reason, setReason] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   // const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
 
   const [routines, setRoutines] = useState<Routine[]>();
