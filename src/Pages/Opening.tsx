@@ -124,12 +124,13 @@ const Opening = () => {
         .post("http://localhost:3000/opening-routines", newData)
         .then((response) => {
           console.log(response.data);
+          console.log(response.data);
           if (typeof response.data === "string") {
             setSuccessMessage(response.data);
           } else {
-            // Handle other cases or provide a default value
             setSuccessMessage("Default success message");
           }
+          setShowModal(true);
         })
         .catch((error) => {
           console.log(error);
@@ -190,6 +191,40 @@ const Opening = () => {
           <button type="submit">Spara</button>
         </div>
       </form>
+      <Modal show={showModal} onHide={handleModalClose}>
+        <div className="modal-wrapper">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">
+                {successMessage ? "Lyckat!" : "Modal Titel"}
+              </h5>
+              <button
+                type="button"
+                className="close"
+                onClick={handleModalClose}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              {successMessage ? (
+                <p>{successMessage}</p>
+              ) : (
+                <p>Modal Innehåll (anpassa vid behov)</p>
+              )}
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleModalClose}
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
