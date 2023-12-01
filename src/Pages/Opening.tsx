@@ -22,6 +22,9 @@ const Opening = () => {
     setSuccessMessage("");
   };
 
+  const handleOverlayButtonClick = () => {
+    setShowModal(true);
+  };
   const getData = async () => {
     try {
       const response = await axios.get(
