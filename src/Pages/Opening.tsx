@@ -121,8 +121,7 @@ const Opening = () => {
   const isSaveButtonDisabled = () => {
     //disable the button is send is sucess or no new todo is checked
     return (
-      successMessage !== "" ||
-      (routines && routines.every((item) => !item.Done))
+      successMessage !== "" || !(routines && routines.some((item) => item.Done))
     );
   };
 
@@ -174,7 +173,9 @@ const Opening = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </label>
-          <button type="submit">Spara</button>
+          <button type="submit" disabled={isSaveButtonDisabled()}>
+            Spara
+          </button>
         </div>
       </form>
       <Modal show={showModal} onHide={handleModalClose} backdrop={true}>
