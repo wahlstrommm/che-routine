@@ -9,7 +9,6 @@ const Opening = () => {
   const [reason, setReason] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
-  // const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
   const [routines, setRoutines] = useState<Routine[]>();
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const Opening = () => {
         console.warn(response.data);
       } else {
         console.error("Data is not an array:", response.data);
-        // Om det inte är en array, sätt routines till en tom array
+        //Sätter till tom lista
         setRoutines([]);
       }
     } catch (error) {
@@ -50,7 +49,6 @@ const Opening = () => {
   };
 
   const handleItemClick = (index: number) => {
-    // Kontrollera om routines är definierad innan du fortsätter
     if (routines) {
       const updatedRoutines = [...routines];
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -99,26 +97,6 @@ const Opening = () => {
       Anledning: reason,
     };
 
-    // // Skapa en JSON-sträng från datan
-    // const jsonData = JSON.stringify(newData, null, 2);
-
-    // // Skapa ett Blob-objekt med JSON-strängen
-    // const blob = new Blob([jsonData], { type: "application/json" });
-
-    // // Skapa en URL för Blob-objektet
-    // const url = URL.createObjectURL(blob);
-
-    // // Skapa en länk för att ladda ner filen
-    // const link = document.createElement("a");
-    // link.href = url;
-    // link.download = `data_${newData.Datum}_oppning.json`;
-    // link.click();
-
-    // // Rensa URL-objektet efter nedladdningen
-    // URL.revokeObjectURL(url);
-    // setReason("");
-
-    // Skicka data till servern med Axios
     try {
       axios
         .post("http://localhost:3000/opening-routines", newData)
