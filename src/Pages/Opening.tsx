@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { Routine } from "./types";
 import Modal from "react-overlays/Modal";
 //import openingRoutine from "../assets/openingRoutine.json";
@@ -8,7 +8,7 @@ const Opening = () => {
   const [name, setName] = useState("");
   const [reason, setReason] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
   // const [routines, setRoutines] = useState<Routine[]>(openingRoutine);
   const [routines, setRoutines] = useState<Routine[]>();
 
@@ -25,6 +25,7 @@ const Opening = () => {
   const handleOverlayButtonClick = () => {
     setShowModal(true);
   };
+
   const getData = async () => {
     try {
       const response = await axios.get(
@@ -123,6 +124,12 @@ const Opening = () => {
         .post("http://localhost:3000/opening-routines", newData)
         .then((response) => {
           console.log(response.data);
+          if (typeof response.data === "string") {
+            setSuccessMessage(response.data);
+          } else {
+            // Handle other cases or provide a default value
+            setSuccessMessage("Default success message");
+          }
         })
         .catch((error) => {
           console.log(error);
