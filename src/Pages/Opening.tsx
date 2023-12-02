@@ -2,7 +2,7 @@ import React, { SetStateAction, useEffect, useState } from "react";
 import { Routine } from "./types";
 import Modal from "react-overlays/Modal";
 import moment from "moment";
-
+import "moment/locale/sv"; // without this line it didn't work
 //import openingRoutine from "../assets/openingRoutine.json";
 import axios from "axios";
 
@@ -39,6 +39,10 @@ const Opening = () => {
       if (response.data && Array.isArray(responseData.Rutiner)) {
         setRoutines(responseData.Rutiner);
         console.warn(response.data);
+        const currentDate = moment().toLocaleString();
+        console.log(currentDate);
+        const currentDate2 = new Date().toLocaleString() + "";
+        console.log(currentDate2);
       } else if (response.data && Array.isArray(responseData)) {
         setRoutines(responseData);
         console.warn(response.data);
@@ -107,7 +111,8 @@ const Opening = () => {
     const newData = {
       Namn: name,
       Datum: new Date().toISOString().split("T")[0],
-      Rutiner: routines || [], // Tillhandahåll en tom array som standard om routines är undefined
+      Rutiner: routines || [], // Tillhandahåll en tom array som standard om routines.
+      Uppdaterad: new Date().toLocaleString() + "",
       Anledning: reason,
     };
 
