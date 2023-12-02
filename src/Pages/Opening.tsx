@@ -1,5 +1,5 @@
 import React, { SetStateAction, useEffect, useState } from "react";
-import { Routine } from "./types";
+import { Routine } from "../Types/types";
 import Modal from "react-overlays/Modal";
 //import openingRoutine from "../assets/openingRoutine.json";
 import axios from "axios";
@@ -34,6 +34,7 @@ const Opening = () => {
       );
       // Kontrollera om response.data är en array innan du använder den
       const responseData = response.data as { Rutiner?: any[] };
+
       if (response.data && Array.isArray(responseData.Rutiner)) {
         setRoutines(responseData.Rutiner);
         //SetLastSaved(responseData && responseData.SenastSparad ? responseData.SenastSparad :);
