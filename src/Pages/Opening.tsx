@@ -10,8 +10,9 @@ const Opening = () => {
   const [showModal, setShowModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [routines, setRoutines] = useState<Routine[]>();
-  const [completedTodos, setCompletedTodos] = useState<string[]>([]);
+  const [completedTodos, setCompletedTodos] = useState<Routine[]>([]);
   const [hasChanges, setHasChanges] = useState(false);
+  const [savedDate, setSavedDate] = useState("");
   useEffect(() => {
     void getData();
   }, []);
@@ -80,7 +81,7 @@ const Opening = () => {
       updatedRoutines[index] = updatedItem;
       setRoutines(updatedRoutines);
 
-      setCompletedTodos((prevCompleted: string[]): string[] =>
+      setCompletedTodos((prevCompleted: Routine[]): Routine[] =>
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         checked
           ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -138,7 +139,10 @@ const Opening = () => {
 
   return (
     <div>
-      <h2>Öppningsrutin</h2>
+      <div>
+        <h2>Öppningsrutin</h2>
+        <p>Senaste sparad:</p>
+      </div>
       <form onSubmit={handleFormSubmit}>
         <ul className="listTodo">
           {routines?.map((item: Routine, index: number) => (
