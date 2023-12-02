@@ -1,8 +1,6 @@
 import React, { SetStateAction, useEffect, useState } from "react";
 import { Routine } from "./types";
 import Modal from "react-overlays/Modal";
-import moment from "moment";
-import "moment/locale/sv"; // without this line it didn't work
 //import openingRoutine from "../assets/openingRoutine.json";
 import axios from "axios";
 
@@ -14,7 +12,7 @@ const Opening = () => {
   const [routines, setRoutines] = useState<Routine[]>();
   const [completedTodos, setCompletedTodos] = useState<Routine[]>([]);
   const [hasChanges, setHasChanges] = useState(false);
-  const [savedDate, setSavedDate] = useState("");
+  const [lastSaved, SetLastSaved] = useState("");
   useEffect(() => {
     void getData();
   }, []);
@@ -38,11 +36,8 @@ const Opening = () => {
       const responseData = response.data as { Rutiner?: any[] };
       if (response.data && Array.isArray(responseData.Rutiner)) {
         setRoutines(responseData.Rutiner);
+        //SetLastSaved(responseData && responseData.SenastSparad ? responseData.SenastSparad :);
         console.warn(response.data);
-        const currentDate = moment().toLocaleString();
-        console.log(currentDate);
-        const currentDate2 = new Date().toLocaleString() + "";
-        console.log(currentDate2);
       } else if (response.data && Array.isArray(responseData)) {
         setRoutines(responseData);
         console.warn(response.data);
@@ -89,7 +84,7 @@ const Opening = () => {
 
       setCompletedTodos((prevCompleted: Routine[]): Routine[] =>
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        checked
+        checked && updatedItem.Id
           ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             [...prevCompleted, updatedItem.Id.toString()]
           : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -108,14 +103,15 @@ const Opening = () => {
       return;
     }
 
+    const savedTime = new Date().toLocaleString() + "";
+
     const newData = {
       Namn: name,
       Datum: new Date().toISOString().split("T")[0],
-      Rutiner: routines || [], // Tillhandahåll en tom array som standard om routines.
-      Uppdaterad: new Date().toLocaleString() + "",
+      Rutiner: routines || [], // Tillhandahåll en tom array som standard om routines är undefined
+      SenastSparad: savedTime,
       Anledning: reason,
     };
-
     try {
       axios
         .post("http://localhost:3000/opening-routines", newData)
@@ -124,6 +120,7 @@ const Opening = () => {
           console.log(response.data);
           if (typeof response.data === "string") {
             setSuccessMessage(response.data);
+            SetLastSaved(savedTime);
           } else {
             setSuccessMessage("Default success message");
           }
@@ -148,7 +145,7 @@ const Opening = () => {
     <div>
       <div>
         <h2>Öppningsrutin</h2>
-        <p>Senaste sparad:</p>
+        <p>Senaste sparad: {lastSaved}</p>
       </div>
       <form onSubmit={handleFormSubmit}>
         <ul className="listTodo">
