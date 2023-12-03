@@ -146,7 +146,7 @@ const Opening = () => {
     <div>
       <div>
         <h2>Öppningsrutin</h2>
-        <p>Senaste sparad: {lastSaved}</p>
+        {lastSaved !== "" && <p>Senaste sparad: {lastSaved}</p>}
       </div>
       <form onSubmit={handleFormSubmit}>
         <ul className="listTodo">
