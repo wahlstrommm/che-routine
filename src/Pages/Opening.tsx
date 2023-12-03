@@ -33,11 +33,20 @@ const Opening = () => {
         "http://localhost:3000/opening-routines"
       );
       // Kontrollera om response.data är en array innan du använder den
-      const responseData = response.data as { Rutiner?: any[] };
+      const responseData = response.data as {
+        SenastSparad: SetStateAction<string>;
+        Rutiner?: any[];
+      };
 
       if (response.data && Array.isArray(responseData.Rutiner)) {
         setRoutines(responseData.Rutiner);
-        //SetLastSaved(responseData && responseData.SenastSparad ? responseData.SenastSparad :);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        SetLastSaved(
+          responseData && responseData.SenastSparad
+            ? responseData.SenastSparad
+            : ""
+        );
+
         console.warn(response.data);
       } else if (response.data && Array.isArray(responseData)) {
         setRoutines(responseData);
@@ -68,7 +77,7 @@ const Opening = () => {
       axios
         .post("http://localhost:3000/opening-routines", { index, updatedItem })
         .then((response) => {
-          console.log(response.data);
+          console.error(response.data);
         })
         .catch((error) => {
           console.log("Fel vid uppdatering av rutinen:", error);
@@ -119,11 +128,24 @@ const Opening = () => {
         .then((response) => {
           console.log(response.data);
           console.log(response.data);
-          if (typeof response.data === "string") {
-            setSuccessMessage(response.data);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          if (
+            response.data &&
+            typeof response.data === "object" &&
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            response.data.success === true
+          ) {
+            const responseDataTime = response.data as {
+              SenastSparad: SetStateAction<string>;
+            };
+            setSuccessMessage(responseDataTime.SenastSparad);
             SetLastSaved(savedTime);
           } else {
-            setSuccessMessage("Default success message");
+            setSuccessMessage(
+              typeof response.data === "string"
+                ? response.data
+                : "Default success message"
+            );
           }
           setShowModal(true);
         })
