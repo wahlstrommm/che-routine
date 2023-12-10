@@ -9,7 +9,7 @@ import Monthly from "./Pages/Monthly.tsx";
 import Closning from "./Pages/Closning.tsx";
 import Layout from "./Pages/Layout.tsx";
 import Special from "./Pages/Special.tsx";
-import PastRoutines from "./Pages/PastRoutines.tsx";
+import Summary from "./Pages/Summary.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="Monthly" element={<Monthly />} />
           <Route path="Weekly" element={<Weekly />} />
           <Route path="Special" element={<Special />} />
-          <Route path="/PastRoutines" element={<PastRoutines />} />
+          <Route path="/Summary" element={<Summary />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
