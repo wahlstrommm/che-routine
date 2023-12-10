@@ -15,16 +15,42 @@ export default function Closning() {
   const [lastSaved, setLastSaved] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await getData();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    void fetchData();
+    void getData();
   }, []);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/closing-routines"
+      );
+      // Kontrollera om response.data är en array innan du använder den
+      const responseData = response.data as {
+        SenastSparad: SetStateAction<string>;
+        Rutiner?: any[];
+      };
+
+      if (response.data && Array.isArray(responseData.Rutiner)) {
+        setRoutines(responseData.Rutiner);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        setLastSaved(
+          responseData && responseData.SenastSparad
+            ? responseData.SenastSparad
+            : ""
+        );
+
+        console.warn(response.data);
+      } else if (response.data && Array.isArray(responseData)) {
+        setRoutines(responseData);
+        console.warn(response.data);
+      } else {
+        console.error("Data is not an array:", response.data);
+        //Sätter till tom lista
+        setRoutines([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleCheckboxChange = (index: number, checked: boolean): void => {
     if (routines) {
@@ -134,13 +160,16 @@ export default function Closning() {
     );
   };
 
-  const getData = async () => {
+  const getData2 = async () => {
     try {
       const response = await axios.get(
         "http://localhost:3000/closing-routines"
       );
 
-      const responseData = response.data as ClosingResponse;
+      const responseData = response.data as {
+        SenastSparad: SetStateAction<string>;
+        Rutiner?: any[];
+      };
 
       if (response.data && Array.isArray(responseData.Rutiner)) {
         setRoutines(responseData.Rutiner);
