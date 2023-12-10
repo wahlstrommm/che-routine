@@ -1,6 +1,6 @@
 import { Routine } from "./types";
 
-interface ClosingResponse {
+export interface ClosingResponse {
     SenastSparad: string;
     Rutiner?: Routine[];
   }
