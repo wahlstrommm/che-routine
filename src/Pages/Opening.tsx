@@ -12,7 +12,7 @@ const Opening = () => {
   const [routines, setRoutines] = useState<Routine[]>();
   const [completedTodos, setCompletedTodos] = useState<Routine[]>([]);
   const [hasChanges, setHasChanges] = useState(false);
-  const [lastSaved, SetLastSaved] = useState("");
+  const [lastSaved, setLastSaved] = useState("");
   useEffect(() => {
     void getData();
   }, []);
@@ -32,55 +32,61 @@ const Opening = () => {
       const response = await axios.get(
         "http://localhost:3000/opening-routines"
       );
-      // Kontrollera om response.data är en array innan du använder den
-      const responseData = response.data as {
-        SenastSparad: SetStateAction<string>;
-        Rutiner?: any[];
-      };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const responseData = response.data;
+      console.error(response);
+      // ...
 
-      if (response.data && Array.isArray(responseData.Rutiner)) {
-        setRoutines(responseData.Rutiner);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        SetLastSaved(
-          responseData && responseData.SenastSparad
-            ? responseData.SenastSparad
-            : ""
-        );
-
-        console.warn(response.data);
-      } else if (response.data && Array.isArray(responseData)) {
+      if (Array.isArray(responseData)) {
+        // Update state with the received routines
         setRoutines(responseData);
-        console.warn(response.data);
+        setLastSaved(""); // Set LastSaved to an appropriate default value
+        console.warn("HÖE!", responseData);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      } else if (responseData && Array.isArray(responseData.Rutiner)) {
+        // Handle the case where there is an updated item
+        // ...
+
+        // Update state with the routines directly from responseData.Rutiner
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+        setRoutines(responseData.Rutiner);
+
+        // ...
       } else {
-        console.error("Data is not an array:", response.data);
-        //Sätter till tom lista
-        setRoutines([]);
+        console.error("Data is not in the expected format:", responseData);
+
+        // Handle the case where the data is not in the expected format
+        // Update state with responseData.Rutiner or an empty array if it doesn't exist
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+        setRoutines(responseData.Rutiner || []);
+        setLastSaved("");
       }
+
+      // ...
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching data:", error);
+
+      // Handle the error, e.g., show an error message to the user
     }
   };
 
   const handleItemClick = (index: number) => {
     if (routines) {
       const updatedRoutines = [...routines];
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const updatedItem: Routine = {
         ...updatedRoutines[index],
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         Done: !updatedRoutines[index].Done,
       };
       updatedRoutines[index] = updatedItem;
       setRoutines(updatedRoutines);
 
-      // Skicka den uppdaterade rutinen till servern
       axios
         .post("http://localhost:3000/opening-routines", { index, updatedItem })
         .then((response) => {
-          console.error(response.data);
+          console.log(response.data);
         })
         .catch((error) => {
-          console.log("Fel vid uppdatering av rutinen:", error);
+          console.log("Error updating routine:", error);
         });
     }
   };
@@ -101,7 +107,15 @@ const Opening = () => {
             prevCompleted.filter((id) => id !== updatedItem.Id.toString())
       );
 
-      setHasChanges(true);
+      // Make an API call to update the server immediately
+      axios
+        .post("http://localhost:3000/opening-routines", updatedRoutines)
+        .then((response) => {
+          console.error(response.data);
+        })
+        .catch((error) => {
+          console.log("Error updating routines:", error);
+        });
     }
   };
 
@@ -139,7 +153,7 @@ const Opening = () => {
               SenastSparad: SetStateAction<string>;
             };
             setSuccessMessage(responseDataTime.SenastSparad);
-            SetLastSaved(savedTime);
+            setLastSaved(savedTime);
           } else {
             setSuccessMessage(
               typeof response.data === "string"
