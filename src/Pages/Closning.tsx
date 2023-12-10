@@ -86,7 +86,7 @@ export default function Closning() {
 
       // Skicka den uppdaterade rutinen till servern
       axios
-        .post("http://localhost:3000/opening-routines", { index, updatedItem })
+        .post("http://localhost:3000/closing-routines", { index, updatedItem })
         .then((response) => {
           console.error(response.data);
         })
@@ -120,7 +120,7 @@ export default function Closning() {
     };
     try {
       axios
-        .post("http://localhost:3000/opening-routines", newData)
+        .post("http://localhost:3000/closing-routines", newData)
         .then((response) => {
           console.log(response.data);
           console.log(response.data);
