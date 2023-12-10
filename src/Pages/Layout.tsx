@@ -25,7 +25,7 @@ function Layout() {
             <Link to="/Special">Special</Link>
           </li>
           <li>
-            <Link to={"/PastRoutines"}>Tidigare rutiner</Link>
+            <Link to={"/Summary"}>Tidigare rutiner</Link>
           </li>
         </ul>
       </nav>
