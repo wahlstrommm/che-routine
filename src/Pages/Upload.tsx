@@ -4,6 +4,9 @@ import axios, { AxiosResponse } from "axios";
 
 export default function Upload() {
   const [file, setFile] = useState<File | null>(null);
+  const [status, setStatus] = useState<
+    "initial" | "uploading" | "success" | "fail"
+  >("initial");
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
