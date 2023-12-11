@@ -27,6 +27,9 @@ function Layout() {
           <li>
             <Link to={"/Summary"}>Tidigare rutiner</Link>
           </li>
+          <li>
+            <Link to={"/Upload"}>Ladda upp</Link>
+          </li>
         </ul>
       </nav>
 
