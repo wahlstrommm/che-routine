@@ -15,27 +15,30 @@ export default function Upload() {
 
   const handleUpload = () => {
     if (file) {
-      console.log("Uploading file...");
+      setStatus("uploading");
 
       const formData = new FormData();
       formData.append("file", file);
 
-      axios
-        .post("http://localhost:3000/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-          // Handle the response or update the UI here
-        })
-        .catch((error) => {
-          console.error(error);
-          // Handle errors here
-        });
+      try {
+        // Use a try-catch block to handle asynchronous code in a synchronous context
+        axios
+          .post("http://localhost:3000/upload", formData)
+          .then((response) => {
+            console.log(response.data);
+            setStatus("success");
+          })
+          .catch((error) => {
+            console.error(error);
+            setStatus("fail");
+          });
+      } catch (error) {
+        console.error(error);
+        setStatus("fail");
+      }
     }
   };
+
   return (
     <>
       <div className="input-group">
