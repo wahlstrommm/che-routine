@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Routine } from "../Types/types";
+import axios, { AxiosResponse } from "axios";
 
 export default function Upload() {
   const [file, setFile] = useState<File | null>(null);
@@ -7,8 +9,29 @@ export default function Upload() {
       setFile(e.target.files[0]);
     }
   };
+
   const handleUpload = () => {
-    // TODO
+    if (file) {
+      console.log("Uploading file...");
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      axios
+        .post("http://localhost:3000/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          // Handle the response or update the UI here
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle errors here
+        });
+    }
   };
   return (
     <>
