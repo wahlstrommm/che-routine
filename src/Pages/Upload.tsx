@@ -38,7 +38,7 @@ export default function Upload() {
   };
   return (
     <>
-      <div>
+      <div className="input-group">
         <label htmlFor="file" className="sr-only">
           Choose a file
         </label>
@@ -55,7 +55,25 @@ export default function Upload() {
         </section>
       )}
 
-      {file && <button onClick={handleUpload}>Upload a file</button>}
+      {file && (
+        <button onClick={handleUpload} className="submit">
+          Upload a file
+        </button>
+      )}
+
+      <Result status={status} />
     </>
   );
 }
+
+const Result = ({ status }: { status: string }) => {
+  if (status === "success") {
+    return <p>✅ File uploaded successfully!</p>;
+  } else if (status === "fail") {
+    return <p>❌ File upload failed!</p>;
+  } else if (status === "uploading") {
+    return <p>⏳ Uploading selected file...</p>;
+  } else {
+    return null;
+  }
+};
