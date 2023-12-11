@@ -43,7 +43,7 @@ export default function Upload() {
     <>
       <div className="input-group">
         <label htmlFor="file" className="sr-only">
-          Choose a file
+          Välj en fil
         </label>
         <input
           id="file"
@@ -54,11 +54,11 @@ export default function Upload() {
       </div>
       {file && (
         <section>
-          File details:
+          Information om filen:
           <ul>
-            <li>Name: {file.name}</li>
-            <li>Type: {file.type}</li>
-            <li>Size: {file.size} bytes</li>
+            <li>Namn: {file.name}</li>
+            <li>Typ: {file.type}</li>
+            <li>Storlek: {file.size} bytes</li>
           </ul>
         </section>
       )}
