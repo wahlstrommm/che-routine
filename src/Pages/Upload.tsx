@@ -75,7 +75,7 @@ const Result = ({ status }: { status: string }) => {
   } else if (status === "fail") {
     return <p>❌ Filuppladdningen misslyckades!</p>;
   } else if (status === "uploading") {
-    return <p>⏳ Uploading selected file...</p>;
+    return <p>⏳ Uppladdning av vald fil pågår...</p>;
   } else {
     return null;
   }
