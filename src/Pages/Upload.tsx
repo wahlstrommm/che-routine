@@ -45,7 +45,12 @@ export default function Upload() {
         <label htmlFor="file" className="sr-only">
           Choose a file
         </label>
-        <input id="file" type="file" onChange={handleFileChange} />
+        <input
+          id="file"
+          type="file"
+          onChange={handleFileChange}
+          accept=".json"
+        />
       </div>
       {file && (
         <section>
