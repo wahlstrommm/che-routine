@@ -6,7 +6,7 @@ export default function Summary() {
   const [summaryData, setSummaryData] = useState<Routine[]>([]);
   useEffect(() => {
     axios
-      .get("/api/routines/summary")
+      .get("http://localhost:3000/summary")
       .then((response) => setSummaryData(response.data as Routine[]))
       .catch((error) => console.error("Error fetching routine summary", error));
   }, []);
