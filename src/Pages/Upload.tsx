@@ -60,7 +60,7 @@ export default function Upload() {
 
       {file && (
         <button onClick={handleUpload} className="submit">
-          Upload a file
+          Ladda upp fil
         </button>
       )}
 
