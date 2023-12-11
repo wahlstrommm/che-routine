@@ -71,9 +71,9 @@ export default function Upload() {
 
 const Result = ({ status }: { status: string }) => {
   if (status === "success") {
-    return <p>✅ File uploaded successfully!</p>;
+    return <p>✅ Uppladdningen av filen lyckades!</p>;
   } else if (status === "fail") {
-    return <p>❌ File upload failed!</p>;
+    return <p>❌ !</p>;
   } else if (status === "uploading") {
     return <p>⏳ Uploading selected file...</p>;
   } else {
