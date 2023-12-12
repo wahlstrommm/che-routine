@@ -139,7 +139,7 @@ export default function Weekly() {
     };
     try {
       axios
-        .post("http://localhost:3000/opening-routines", newData)
+        .post("http://localhost:3000/weekly-routines", newData)
         .then((response) => {
           console.log(response.data);
           console.log(response.data);
