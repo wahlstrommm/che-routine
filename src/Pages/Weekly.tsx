@@ -17,10 +17,165 @@ export default function Weekly() {
     void getData();
   }, []);
 
+  const getData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/weekly-routines");
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const responseData = response.data;
+      console.error(response);
+      // ...
+
+      if (Array.isArray(responseData)) {
+        // Update state with the received routines
+        setRoutines(responseData);
+        setLastSaved(""); // Set LastSaved to an appropriate default value
+        console.warn("HÖE!", responseData);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      } else if (responseData && Array.isArray(responseData.Rutiner)) {
+        // Handle the case where there is an updated item
+        // ...
+
+        // Update state with the routines directly from responseData.Rutiner
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+        setRoutines(responseData.Rutiner);
+
+        // ...
+      } else {
+        console.error("Data is not in the expected format:", responseData);
+
+        // Handle the case where the data is not in the expected format
+        // Update state with responseData.Rutiner or an empty array if it doesn't exist
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+        setRoutines(responseData.Rutiner || []);
+        setLastSaved("");
+      }
+
+      // ...
+    } catch (error) {
+      console.log("Error fetching data:", error);
+
+      // Handle the error, e.g., show an error message to the user
+    }
+  };
+
+  const handleItemClick = (index: number) => {
+    if (routines) {
+      const updatedRoutines = [...routines];
+      const updatedItem: Routine = {
+        ...updatedRoutines[index],
+        Done: !updatedRoutines[index].Done,
+      };
+      updatedRoutines[index] = updatedItem;
+      setRoutines(updatedRoutines);
+
+      axios
+        .post("http://localhost:3000/weekly-routines", { index, updatedItem })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log("Error updating routine:", error);
+        });
+    }
+  };
+
+  const isSaveButtonDisabled = () => {
+    //disable the button is send is sucess or no new todo is checked
+    return (
+      successMessage !== "" || !(routines && routines.some((item) => item.Done))
+    );
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    // Rensa successmeddelandet när modalen stängs
+    setSuccessMessage("");
+  };
+
+  const handleCheckboxChange = (index: number, checked: boolean): void => {
+    if (routines) {
+      const updatedRoutines: Routine[] = [...routines];
+      const updatedItem: Routine = { ...updatedRoutines[index], Done: checked };
+      updatedRoutines[index] = updatedItem;
+      setRoutines(updatedRoutines);
+
+      setCompletedTodos((prevCompleted: Routine[]): Routine[] =>
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        checked && updatedItem.Id
+          ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+            [...prevCompleted, updatedItem.Id.toString()]
+          : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+            prevCompleted.filter((id) => id !== updatedItem.Id.toString())
+      );
+
+      // Make an API call to update the server immediately
+      axios
+        .post("http://localhost:3000/weekly-routines", updatedRoutines)
+        .then((response) => {
+          console.error(response.data);
+        })
+        .catch((error) => {
+          console.log("Error updating routines:", error);
+        });
+    }
+  };
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!name) {
+      alert("Vänligen ange ditt namn");
+      return;
+    }
+
+    const savedTime = new Date().toLocaleString() + "";
+
+    const newData = {
+      Namn: name,
+      Datum: new Date().toISOString().split("T")[0],
+      Rutiner: routines || [], // Tillhandahåll en tom array som standard om routines är undefined
+      SenastSparad: savedTime,
+      Anledning: reason,
+    };
+    try {
+      axios
+        .post("http://localhost:3000/opening-routines", newData)
+        .then((response) => {
+          console.log(response.data);
+          console.log(response.data);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          if (
+            response.data &&
+            typeof response.data === "object" &&
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            response.data.success === true
+          ) {
+            const responseDataTime = response.data as {
+              SenastSparad: SetStateAction<string>;
+            };
+            setSuccessMessage(responseDataTime.SenastSparad);
+            setLastSaved(savedTime);
+          } else {
+            setSuccessMessage(
+              typeof response.data === "string"
+                ? response.data
+                : "Default success message"
+            );
+          }
+          setShowModal(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div>
-        <h2>Öppningsrutin</h2>
+        <h2>Veckorutin</h2>
         {lastSaved !== "" && <p>Senaste sparad: {lastSaved}</p>}
       </div>
       <form onSubmit={handleFormSubmit}>
