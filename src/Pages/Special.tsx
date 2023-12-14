@@ -16,6 +16,12 @@ export default function Special() {
     void getData();
   }, []);
 
+  const handleModalClose = () => {
+    setShowModal(false);
+    // Rensa successmeddelandet när modalen stängs
+    setSuccessMessage("");
+  };
+
   return (
     <div>
       <div>
