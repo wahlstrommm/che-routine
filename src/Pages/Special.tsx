@@ -86,6 +86,34 @@ export default function Special() {
     }
   };
 
+  const handleCheckboxChange = (index: number, checked: boolean): void => {
+    if (routines) {
+      const updatedRoutines: Routine[] = [...routines];
+      const updatedItem: Routine = { ...updatedRoutines[index], Done: checked };
+      updatedRoutines[index] = updatedItem;
+      setRoutines(updatedRoutines);
+
+      setCompletedTodos((prevCompleted: Routine[]): Routine[] =>
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        checked && updatedItem.Id
+          ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+            [...prevCompleted, updatedItem.Id.toString()]
+          : // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+            prevCompleted.filter((id) => id !== updatedItem.Id.toString())
+      );
+
+      // Make an API call to update the server immediately
+      axios
+        .post("http://localhost:3000/opening-routines", updatedRoutines)
+        .then((response) => {
+          console.error(response.data);
+        })
+        .catch((error) => {
+          console.log("Error updating routines:", error);
+        });
+    }
+  };
+
   return (
     <div>
       <div>
