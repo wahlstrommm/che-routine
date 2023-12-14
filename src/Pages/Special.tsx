@@ -65,6 +65,27 @@ export default function Special() {
     }
   };
 
+  const handleItemClick = (index: number) => {
+    if (routines) {
+      const updatedRoutines = [...routines];
+      const updatedItem: Routine = {
+        ...updatedRoutines[index],
+        Done: !updatedRoutines[index].Done,
+      };
+      updatedRoutines[index] = updatedItem;
+      setRoutines(updatedRoutines);
+
+      axios
+        .post("http://localhost:3000/opening-routines", { index, updatedItem })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log("Error updating routine:", error);
+        });
+    }
+  };
+
   return (
     <div>
       <div>
