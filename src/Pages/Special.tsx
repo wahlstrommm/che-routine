@@ -4,7 +4,12 @@ import Modal from "react-overlays/Modal";
 import axios from "axios";
 
 export default function Special() {
-  return  return (
+  const [name, setName] = useState("");
+  const [reason, setReason] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [routines, setRoutines] = useState<Routine[]>();
+  return (
     <div>
       <div>
         <h2>Öppningsrutin</h2>
