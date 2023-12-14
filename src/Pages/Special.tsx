@@ -9,6 +9,13 @@ export default function Special() {
   const [showModal, setShowModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [routines, setRoutines] = useState<Routine[]>();
+
+  const [lastSaved, setLastSaved] = useState("");
+
+  useEffect(() => {
+    void getData();
+  }, []);
+
   return (
     <div>
       <div>
