@@ -22,6 +22,13 @@ export default function Special() {
     setSuccessMessage("");
   };
 
+  const isSaveButtonDisabled = () => {
+    //disable the button is send is sucess or no new todo is checked
+    return (
+      successMessage !== "" || !(routines && routines.some((item) => item.Done))
+    );
+  };
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
