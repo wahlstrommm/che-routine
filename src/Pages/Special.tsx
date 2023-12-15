@@ -9,7 +9,7 @@ export default function Special() {
   const [showModal, setShowModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [routines, setRoutines] = useState<Routine[]>();
-
+  const [completedTodos, setCompletedTodos] = useState<Routine[]>([]);
   const [lastSaved, setLastSaved] = useState("");
 
   useEffect(() => {
@@ -93,6 +93,7 @@ export default function Special() {
       updatedRoutines[index] = updatedItem;
       setRoutines(updatedRoutines);
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       setCompletedTodos((prevCompleted: Routine[]): Routine[] =>
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         checked && updatedItem.Id
