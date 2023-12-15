@@ -22,10 +22,62 @@ export default function Special() {
     setSuccessMessage("");
   };
 
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!name) {
+      alert("Vänligen ange ditt namn");
+      return;
+    }
+
+    const savedTime = new Date().toLocaleString() + "";
+
+    const newData = {
+      Namn: name,
+      Datum: new Date().toISOString().split("T")[0],
+      Rutiner: routines || [], // Tillhandahåll en tom array som standard om routines är undefined
+      SenastSparad: savedTime,
+      Anledning: reason,
+    };
+    try {
+      axios
+        .post("http://localhost:3000/special-routines", newData)
+        .then((response) => {
+          console.log(response.data);
+          console.log(response.data);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          if (
+            response.data &&
+            typeof response.data === "object" &&
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            response.data.success === true
+          ) {
+            const responseDataTime = response.data as {
+              SenastSparad: SetStateAction<string>;
+            };
+            setSuccessMessage(responseDataTime.SenastSparad);
+            setLastSaved(savedTime);
+          } else {
+            setSuccessMessage(
+              typeof response.data === "string"
+                ? response.data
+                : "Default success message"
+            );
+          }
+          setShowModal(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/opening-routines"
+        "http://localhost:3000/special-routines"
       );
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const responseData = response.data;
@@ -76,7 +128,7 @@ export default function Special() {
       setRoutines(updatedRoutines);
 
       axios
-        .post("http://localhost:3000/opening-routines", { index, updatedItem })
+        .post("http://localhost:3000/special-routines", { index, updatedItem })
         .then((response) => {
           console.log(response.data);
         })
@@ -105,7 +157,7 @@ export default function Special() {
 
       // Make an API call to update the server immediately
       axios
-        .post("http://localhost:3000/opening-routines", updatedRoutines)
+        .post("http://localhost:3000/special-routines", updatedRoutines)
         .then((response) => {
           console.error(response.data);
         })
