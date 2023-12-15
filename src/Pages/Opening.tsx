@@ -11,7 +11,7 @@ const Opening = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [routines, setRoutines] = useState<Routine[]>();
   const [completedTodos, setCompletedTodos] = useState<Routine[]>([]);
-  const [hasChanges, setHasChanges] = useState(false);
+  //const [hasChanges, setHasChanges] = useState(false);
   const [lastSaved, setLastSaved] = useState("");
   useEffect(() => {
     void getData();
