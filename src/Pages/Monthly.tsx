@@ -1,6 +1,49 @@
 import React from "react";
 
 export default function Monthly() {
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/opening-routines"
+      );
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const responseData = response.data;
+      console.error(response);
+      // ...
+
+      if (Array.isArray(responseData)) {
+        // Update state with the received routines
+        setRoutines(responseData);
+        setLastSaved(""); // Set LastSaved to an appropriate default value
+        console.warn("HÖE!", responseData);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      } else if (responseData && Array.isArray(responseData.Rutiner)) {
+        // Handle the case where there is an updated item
+        // ...
+
+        // Update state with the routines directly from responseData.Rutiner
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+        setRoutines(responseData.Rutiner);
+
+        // ...
+      } else {
+        console.error("Data is not in the expected format:", responseData);
+
+        // Handle the case where the data is not in the expected format
+        // Update state with responseData.Rutiner or an empty array if it doesn't exist
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+        setRoutines(responseData.Rutiner || []);
+        setLastSaved("");
+      }
+
+      // ...
+    } catch (error) {
+      console.log("Error fetching data:", error);
+
+      // Handle the error, e.g., show an error message to the user
+    }
+  };
+
   const handleItemClick = (index: number) => {
     if (routines) {
       const updatedRoutines = [...routines];
