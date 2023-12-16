@@ -4,7 +4,6 @@ import Modal from "react-overlays/Modal";
 import axios from "axios";
 
 export default function Special() {
-
   const [name, setName] = useState("");
   const [reason, setReason] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -178,7 +177,7 @@ export default function Special() {
   return (
     <div>
       <div>
-        <h2>Öppningsrutin</h2>
+        <h2>Special route</h2>
         {lastSaved !== "" && <p>Senaste sparad: {lastSaved}</p>}
       </div>
       <form onSubmit={handleFormSubmit}>
@@ -271,5 +270,4 @@ export default function Special() {
       </Modal>
     </div>
   );
-
 }
