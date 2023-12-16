@@ -1,3 +1,3 @@
 export default function Special() {
-  return <div>Special</div>;
+  return <div>Special Route</div>;
 }
