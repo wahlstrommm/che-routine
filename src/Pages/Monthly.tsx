@@ -1,6 +1,12 @@
 import React from "react";
 
 export default function Monthly() {
+  const handleModalClose = () => {
+    setShowModal(false);
+    // Rensa successmeddelandet när modalen stängs
+    setSuccessMessage("");
+  };
+
   const handleOverlayButtonClick = () => {
     setShowModal(true);
   };
