@@ -1,6 +1,18 @@
 import React from "react";
 
 export default function Monthly() {
+  const [name, setName] = useState("");
+  const [reason, setReason] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [routines, setRoutines] = useState<Routine[]>();
+  const [completedTodos, setCompletedTodos] = useState<Routine[]>([]);
+  //const [hasChanges, setHasChanges] = useState(false);
+  const [lastSaved, setLastSaved] = useState("");
+  useEffect(() => {
+    void getData();
+  }, []);
+
   const handleModalClose = () => {
     setShowModal(false);
     // Rensa successmeddelandet när modalen stängs
