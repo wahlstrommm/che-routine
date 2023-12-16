@@ -1,6 +1,12 @@
 import React from "react";
 
 export default function Monthly() {
+  const isSaveButtonDisabled = () => {
+    //disable the button is send is sucess or no new todo is checked
+    return (
+      successMessage !== "" || !(routines && routines.some((item) => item.Done))
+    );
+  };
   return (
     <div>
       <div>
