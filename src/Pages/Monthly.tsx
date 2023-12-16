@@ -1,6 +1,58 @@
 import React from "react";
 
 export default function Monthly() {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!name) {
+      alert("Vänligen ange ditt namn");
+      return;
+    }
+
+    const savedTime = new Date().toLocaleString() + "";
+
+    const newData = {
+      Namn: name,
+      Datum: new Date().toISOString().split("T")[0],
+      Rutiner: routines || [], // Tillhandahåll en tom array som standard om routines är undefined
+      SenastSparad: savedTime,
+      Anledning: reason,
+    };
+    try {
+      axios
+        .post("http://localhost:3000/opening-routines", newData)
+        .then((response) => {
+          console.log(response.data);
+          console.log(response.data);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          if (
+            response.data &&
+            typeof response.data === "object" &&
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            response.data.success === true
+          ) {
+            const responseDataTime = response.data as {
+              SenastSparad: SetStateAction<string>;
+            };
+            setSuccessMessage(responseDataTime.SenastSparad);
+            setLastSaved(savedTime);
+          } else {
+            setSuccessMessage(
+              typeof response.data === "string"
+                ? response.data
+                : "Default success message"
+            );
+          }
+          setShowModal(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const isSaveButtonDisabled = () => {
     //disable the button is send is sucess or no new todo is checked
     return (
