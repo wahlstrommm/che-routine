@@ -28,7 +28,7 @@ export default function Monthly() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/opening-routines"
+        "http://localhost:3000/monthly-routines"
       );
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const responseData = response.data;
@@ -79,7 +79,7 @@ export default function Monthly() {
       setRoutines(updatedRoutines);
 
       axios
-        .post("http://localhost:3000/opening-routines", { index, updatedItem })
+        .post("http://localhost:3000/monthly-routines", { index, updatedItem })
         .then((response) => {
           console.log(response.data);
         })
@@ -107,7 +107,7 @@ export default function Monthly() {
 
       // Make an API call to update the server immediately
       axios
-        .post("http://localhost:3000/opening-routines", updatedRoutines)
+        .post("http://localhost:3000/monthly-routines", updatedRoutines)
         .then((response) => {
           console.error(response.data);
         })
@@ -136,7 +136,7 @@ export default function Monthly() {
     };
     try {
       axios
-        .post("http://localhost:3000/opening-routines", newData)
+        .post("http://localhost:3000/monthly-routines", newData)
         .then((response) => {
           console.log(response.data);
           console.log(response.data);
