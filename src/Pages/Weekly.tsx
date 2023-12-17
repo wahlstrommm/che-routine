@@ -29,7 +29,7 @@ export default function Weekly() {
         // Update state with the received routines
         setRoutines(responseData);
         setLastSaved(""); // Set LastSaved to an appropriate default value
-        console.warn("HÖE!", responseData);
+        console.warn("Response data:", responseData);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       } else if (responseData && Array.isArray(responseData.Rutiner)) {
         // Handle the case where there is an updated item
@@ -112,7 +112,7 @@ export default function Weekly() {
       axios
         .post("http://localhost:3000/weekly-routines", updatedRoutines)
         .then((response) => {
-          console.error(response.data);
+          console.log(response);
         })
         .catch((error) => {
           console.log("Error updating routines:", error);
