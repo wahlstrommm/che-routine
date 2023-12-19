@@ -1,7 +1,6 @@
 import React, { SetStateAction, useEffect, useState } from "react";
 import { Routine } from "../Types/types";
 import Modal from "react-overlays/Modal";
-//import openingRoutine from "../assets/openingRoutine.json";
 import axios from "axios";
 
 export default function Weekly() {
@@ -29,7 +28,7 @@ export default function Weekly() {
         // Update state with the received routines
         setRoutines(responseData);
         setLastSaved(""); // Set LastSaved to an appropriate default value
-        console.warn("HÖE!", responseData);
+        console.warn("Response data:", responseData);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       } else if (responseData && Array.isArray(responseData.Rutiner)) {
         // Handle the case where there is an updated item
@@ -112,7 +111,7 @@ export default function Weekly() {
       axios
         .post("http://localhost:3000/weekly-routines", updatedRoutines)
         .then((response) => {
-          console.error(response.data);
+          console.log(response);
         })
         .catch((error) => {
           console.log("Error updating routines:", error);
@@ -141,7 +140,6 @@ export default function Weekly() {
       axios
         .post("http://localhost:3000/weekly-routines", newData)
         .then((response) => {
-          console.log(response.data);
           console.log(response.data);
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           if (
