@@ -141,7 +141,6 @@ export default function Weekly() {
         .post("http://localhost:3000/weekly-routines", newData)
         .then((response) => {
           console.log(response.data);
-          console.log(response.data);
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           if (
             response.data &&
