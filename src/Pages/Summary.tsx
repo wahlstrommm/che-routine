@@ -18,7 +18,7 @@ export default function Summary() {
   const renderDays = (days: Routine[]) => (
     <ul>
       {days.map((day) => (
-        <li key={day.id}>{day.name}</li>
+        <li key={day.id as number}>{day.name}</li>
       ))}
     </ul>
   );
@@ -38,8 +38,10 @@ export default function Summary() {
     <div>
       {months.map((month, monthIndex) => (
         <div key={monthIndex}>
-          {/* Assuming 'date' is on each day object within the month */}
-          <h3>{month[0].day}</h3>
+          {/* Assuming 'month' and 'day' are properties within the Routine objects */}
+          <h3>{`Month: ${month[0][0].month as string}, Day: ${
+            month[0][0].day
+          }`}</h3>
           {renderWeeks(month)}
         </div>
       ))}
