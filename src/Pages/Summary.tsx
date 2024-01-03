@@ -2,9 +2,9 @@ import moment, { MomentInput } from "moment";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Routine } from "../Types/types";
+import { Day } from "../Types/IDay";
 import { Week } from "../Types/IWeek";
 import { Month } from "../Types/IMonth";
-import { Day } from "../Types/IDay";
 import { IRoutine } from "../Types/IRoutine";
 
 export default function Summary() {
