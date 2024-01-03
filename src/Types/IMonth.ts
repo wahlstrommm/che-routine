@@ -1,5 +1,5 @@
-import Week from "./IWeek";
+import {Week} from "./IWeek";
 
-interface Month {
+export interface Month {
     weeks: Week[];
   }
