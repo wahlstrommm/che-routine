@@ -5,3 +5,4 @@ interface Routine {
     Tags: string[];
     Done: boolean;
   }
+  export default Routine;
