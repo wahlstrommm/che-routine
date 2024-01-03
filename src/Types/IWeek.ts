@@ -1,0 +1,4 @@
+
+interface Week {
+    days: Day[];
+  }
