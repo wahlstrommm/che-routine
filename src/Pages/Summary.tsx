@@ -39,12 +39,14 @@ export default function Summary() {
     </div>
   );
 
-  const renderMonths = (months: Routine[][][]) => (
+  const renderMonths = (months: Month[]) => (
     <div>
       {months.map((month, monthIndex) => (
         <div key={monthIndex}>
-          <h3>{`Month: ${moment(month[0].Datum as string).format("MMMM")}`}</h3>
-          {renderWeeks(month)}
+          <h3>{`Month: ${moment(month.weeks[0].days[0].Datum).format(
+            "MMMM"
+          )}`}</h3>
+          {renderWeeks(month.weeks)}
         </div>
       ))}
     </div>
