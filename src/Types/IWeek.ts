@@ -1,5 +1,4 @@
-import Day from "./IDay.ts";
-interface Week {
+import {Day} from "./IDay.ts";
+export interface Week {
     days: Day[];
   }
-  export default Week;
