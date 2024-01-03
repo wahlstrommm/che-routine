@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="Monthly" element={<Monthly />} />
           <Route path="Weekly" element={<Weekly />} />
           <Route path="Special" element={<Special />} />
-          <Route path="/Summary" element={<Summary />} />
+          <Route path="Summary" element={<Summary />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="*" element={<NoPage />} />
         </Route>

@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <div>
+      {/* <div>
         <div className="listBox">
           <p>test</p>
           <ul>
@@ -42,7 +42,7 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
     </>
   );
 }
