@@ -1,7 +1,11 @@
+import moment, { MomentInput } from "moment";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Routine } from "../Types/types";
-import moment from "moment";
+import { Week } from "../Types/IWeek";
+import { Month } from "../Types/IMonth";
+import { Day } from "../Types/IDay";
+import { IRoutine } from "../Types/IRoutine";
 
 export default function Summary() {
   const [summaryData, setSummaryData] = useState<Routine[][][]>([]);
@@ -10,7 +14,7 @@ export default function Summary() {
     axios
       .get("http://localhost:3000/summary")
       .then((response) => {
-        console.log(response.data); // Check the response data in the console
+        console.log(response.data);
         setSummaryData(response.data as Routine[][][]);
       })
       .catch((error) => console.error("Error fetching routine summary", error));
@@ -19,7 +23,7 @@ export default function Summary() {
   const renderDays = (days: Routine[]) => (
     <ul>
       {days.map((day) => (
-        <li key={day.id as number}>{day.name}</li>
+        <li key={day.id as number}>{day.Namn || day.Text}</li>
       ))}
     </ul>
   );
@@ -35,14 +39,11 @@ export default function Summary() {
     </div>
   );
 
-  const renderMonths = (months: Routine[][][] = []) => (
+  const renderMonths = (months: Routine[][][]) => (
     <div>
       {months.map((month, monthIndex) => (
         <div key={monthIndex}>
-          {/* Assuming 'month' and 'day' are properties within the Routine objects */}
-          <h3>{`Month: ${month[0][0].month as string}, Day: ${
-            month[0][0].day
-          }`}</h3>
+          <h3>{`Month: ${moment(month[0].Datum as string).format("MMMM")}`}</h3>
           {renderWeeks(month)}
         </div>
       ))}
@@ -51,7 +52,6 @@ export default function Summary() {
 
   return (
     <div>
-      {/* Example: Display months, weeks, and days */}
       {Array.isArray(summaryData) && summaryData.length > 0 ? (
         renderMonths(summaryData)
       ) : (
