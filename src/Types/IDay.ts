@@ -4,3 +4,4 @@ interface Day {
     Rutiner: Routine[];
     Anledning: string;
   }
+  export default Day;
