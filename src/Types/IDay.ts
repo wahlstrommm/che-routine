@@ -1,9 +1,9 @@
-import Routine from "./IRoutine";
+import {IRoutine} from "./IRoutine";
 
-interface Day {
+export interface Day {
     Namn: string;
     Datum: string;
-    Rutiner: Routine[];
+    Rutiner: IRoutine[];
     Anledning: string;
   }
-  export default Day;
+  
